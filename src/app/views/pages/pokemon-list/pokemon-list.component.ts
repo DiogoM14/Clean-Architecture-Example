@@ -19,7 +19,6 @@ export class PokemonListComponent implements OnInit {
     this.getAllPokemons.execute()
       .subscribe((pokemons: any) => {
       this.pokemons = pokemons
-        console.log(this.pokemons)
     });
   }
 }
