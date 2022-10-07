@@ -1,0 +1,21 @@
+<main>
+  <app-default-button
+    (click)="handleFetchAllPokemons()"
+    btnName="Show me all"
+  ></app-default-button>
+
+  <div class="list" *ngIf="pokemons">
+    <ul>
+      <li *ngFor="let pokemon of pokemons">
+        <p>
+          {{ pokemon.name }}
+        </p>
+        <a [routerLink]="['/details/' + pokemon.name]">See more</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="pagination-buttons-group" *ngIf="pokemons.length > 0">
+
+  </div>
+</main>

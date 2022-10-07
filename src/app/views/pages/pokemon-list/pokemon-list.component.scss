@@ -1,0 +1,55 @@
+@import "~src/assets/index";
+
+main {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.pagination-buttons-group {
+  display: flex;
+  gap: 1rem;
+}
+
+ul {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+
+  li {
+    list-style-type: none;
+    background-color: $gray-600;
+    padding: 1rem;
+    text-align: left;
+    color: $gray-100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &:first-child {
+      border-radius: 8px 8px 0 0;
+    }
+
+    &:last-child {
+      border-radius: 0 0 8px 8px;
+    }
+
+    &:not(:first-child) {
+      border-top: 1px solid $gray-700;
+    }
+
+    p {
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    a {
+      color: $green-500;
+      font-weight: 600;
+      text-decoration: none;
+    }
+  }
+}
