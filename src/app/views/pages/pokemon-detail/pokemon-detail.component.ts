@@ -18,6 +18,6 @@ export class PokemonDetailComponent implements OnInit {
     this.pokemonName = this.route.snapshot.params['name']
 
     this.getPokemonByName.execute(this.pokemonName)
-      .subscribe(res => this.pokemonDetails = res)
+      .subscribe(pokemon => this.pokemonDetails = pokemon)
   }
 }
