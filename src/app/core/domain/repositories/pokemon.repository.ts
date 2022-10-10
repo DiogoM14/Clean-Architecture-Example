@@ -1,6 +1,8 @@
 import { Observable } from 'rxjs';
-import {PokemonModel} from "../models/pokemon.model";
+import { PokemonsModel } from "../models/pokemons.model";
+import { PokemonDetailModel } from "../models/pokemonDetail.model";
 
 export abstract class PokemonRepository {
-  abstract handleFetchAllPokemons(): Observable<PokemonModel>;
+  abstract getAllPokemons(): Observable<PokemonsModel>;
+  abstract getPokemonByName(pokemonName: string): Observable<PokemonDetailModel>
 }

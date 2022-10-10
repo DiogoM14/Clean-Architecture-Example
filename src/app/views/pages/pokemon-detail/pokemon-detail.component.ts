@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { GetPokemonByNameUsecase } from "../../../core/domain/usecases/get-pokemon-by-name.usecase";
+import { PokemonDetailModel } from "../../../core/domain/models/pokemonDetail.model";
 
 @Component({
   selector: 'app-pokemon-detail',
@@ -9,16 +10,14 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class PokemonDetailComponent implements OnInit {
   pokemonName: string = "";
-  pokemonDetails: any = {}
+  pokemonDetails: PokemonDetailModel = { name: "", weight: 0, front_image: "", back_image: "" };
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) { }
+  constructor(private route: ActivatedRoute, private getPokemonByName: GetPokemonByNameUsecase) { }
 
   ngOnInit() {
     this.pokemonName = this.route.snapshot.params['name']
 
-    this.http.get('https://pokeapi.co/api/v2/pokemon/' + this.pokemonName)
-      .subscribe((response: any) => {
-        this.pokemonDetails = response
-      });
+    this.getPokemonByName.execute(this.pokemonName)
+      .subscribe(res => this.pokemonDetails = res)
   }
 }

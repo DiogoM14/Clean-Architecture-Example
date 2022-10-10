@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {GetAllPokemonsUsecase} from "../../../core/domain/usecases/get-all-pokemons.usecase";
-import {PokemonModel} from "../../../core/domain/models/pokemon.model";
+import {PokemonsModel} from "../../../core/domain/models/pokemons.model";
 
 @Component({
   selector: 'app-pokemon-list',
@@ -8,7 +8,7 @@ import {PokemonModel} from "../../../core/domain/models/pokemon.model";
   styleUrls: ['./pokemon-list.component.scss']
 })
 export class PokemonListComponent implements OnInit {
-  pokemons: PokemonModel[] = [];
+  pokemons: PokemonsModel[] = [];
 
   constructor(private getAllPokemons: GetAllPokemonsUsecase) { }
 

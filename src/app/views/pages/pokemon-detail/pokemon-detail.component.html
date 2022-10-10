@@ -1,7 +1,11 @@
-<div *ngIf="pokemonDetails">
-  <h2>{{ pokemonDetails.name }}</h2>
-  <img [src]="pokemonDetails.sprites.front_default" [alt]="pokemonName" />
-  <p>Height: {{ pokemonDetails.height }}</p>
+<main *ngIf="pokemonDetails">
+  <h1>{{ pokemonDetails.name }}</h1>
+  <img [src]="pokemonDetails.front_image" [alt]="pokemonName" />
+  <img [src]="pokemonDetails.back_image" [alt]="pokemonName" />
   <p>Weight: {{ pokemonDetails.weight }}</p>
-  <p>Base experience: {{ pokemonDetails.base_experience }}</p>
-</div>
+
+  <app-default-button
+    btnName="Go back"
+    routerLink="/"
+  ></app-default-button>
+</main>
