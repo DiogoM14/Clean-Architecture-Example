@@ -1,7 +1,7 @@
-import {Component, ElementRef, OnInit} from '@angular/core';
-import {GetAllPokemonsUsecase} from "../../../core/domain/usecases/get-all-pokemons.usecase";
-import {PokemonsModel} from "../../../core/domain/models/pokemons.model";
-import {NgForm, ValidationErrors} from "@angular/forms";
+import { Component } from '@angular/core';
+import { GetAllPokemonsUsecase } from "../../../core/domain/usecases/get-all-pokemons.usecase";
+import {PokemonsModel } from "../../../core/domain/models/pokemons.model";
+import {NgForm} from "@angular/forms";
 import {GetPokemonByNameUsecase} from "../../../core/domain/usecases/get-pokemon-by-name.usecase";
 import {PokemonDetailModel} from "../../../core/domain/models/pokemonDetail.model";
 
@@ -10,16 +10,13 @@ import {PokemonDetailModel} from "../../../core/domain/models/pokemonDetail.mode
   templateUrl: './pokemon-list.component.html',
   styleUrls: ['./pokemon-list.component.scss']
 })
-export class PokemonListComponent implements OnInit {
+export class PokemonListComponent {
   pokemons: PokemonsModel[] = [];
-  showPokemonList: boolean = false
-  pokemonName: string = ""
+  showPokemonList = false
+  pokemonName = ""
   pokemonDetails?: PokemonDetailModel;
 
   constructor(private getAllPokemons: GetAllPokemonsUsecase, private getPokemonByName: GetPokemonByNameUsecase) { }
-
-  ngOnInit(): void {
-  }
 
   handleSearchPokemonByName(form: NgForm) {
     this.pokemonName = form.value.pokemonName
@@ -32,7 +29,7 @@ export class PokemonListComponent implements OnInit {
 
   handleFetchAllPokemons() {
     this.getAllPokemons.execute()
-      .subscribe((pokemons: any) => {
+      .subscribe((pokemons: PokemonsModel[]) => {
       this.pokemons = pokemons
     });
   }

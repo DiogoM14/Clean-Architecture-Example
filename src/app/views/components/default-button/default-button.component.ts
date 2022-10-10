@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./default-button.component.scss']
 })
 export class DefaultButtonComponent implements OnInit {
-  @Input() btnName: string = "";
+  @Input() btnName = "";
   @Input() isDisabled?: boolean = false;
 
   constructor(private http: HttpClient) { }

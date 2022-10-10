@@ -1,9 +1,8 @@
-import { Observable } from 'rxjs';
 import { UseCase } from '../base/use-case';
 import {PokemonsModel} from "../models/pokemons.model";
 import {PokemonRepository} from "../repositories/pokemon.repository";
 
-export class GetAllPokemonsUsecase implements UseCase<void, PokemonsModel> {
+export class GetAllPokemonsUsecase implements UseCase<void, PokemonsModel[]> {
 
   constructor(private pokemonRepository: PokemonRepository) { }
 

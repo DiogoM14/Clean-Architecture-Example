@@ -3,7 +3,6 @@ import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {PokemonRepository} from "../../../domain/repositories/pokemon.repository";
-import {PokemonImplementationRepositoryMapper} from "./mappers/pokemons-repository.mapper";
 import {PokemonsModel} from "../../../domain/models/pokemons.model";
 import {PokemonsEntity} from "./entities/pokemons-entity";
 import {PokemonDetailModel} from "../../../domain/models/pokemonDetail.model";
@@ -21,7 +20,7 @@ export class PokemonImplementationRepository extends PokemonRepository {
     super();
   }
 
-  getAllPokemons(): Observable<PokemonsModel>{
+  getAllPokemons(): Observable<PokemonsModel[]>{
     return this.http.get<PokemonsEntity>('https://pokeapi.co/api/v2/pokemon')
       .pipe(map((response: any) => {
         return response.results

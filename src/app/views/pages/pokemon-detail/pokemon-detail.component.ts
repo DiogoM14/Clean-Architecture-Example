@@ -9,7 +9,7 @@ import { PokemonDetailModel } from "../../../core/domain/models/pokemonDetail.mo
   styleUrls: ['./pokemon-detail.component.scss']
 })
 export class PokemonDetailComponent implements OnInit {
-  pokemonName: string = "";
+  pokemonName = "";
   pokemonDetails: PokemonDetailModel = { name: "", weight: 0, front_image: "", back_image: "" };
 
   constructor(private route: ActivatedRoute, private getPokemonByName: GetPokemonByNameUsecase) { }

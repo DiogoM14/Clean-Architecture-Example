@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
 
 @Component({
@@ -6,7 +6,7 @@ import {TranslateService} from "@ngx-translate/core";
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
 
   constructor(public translate: TranslateService) {
     translate.addLangs(['en', 'de']);
@@ -15,8 +15,4 @@ export class HeaderComponent implements OnInit {
     const browserLang: any = translate.getBrowserLang();
     translate.use(browserLang.match(/en|de/) ? browserLang : 'en');
   }
-
-  ngOnInit(): void {
-  }
-
 }
