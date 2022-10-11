@@ -6,16 +6,16 @@ import { PokemonListComponent } from './views/pages/pokemon-list/pokemon-list.co
 import { PokemonDetailComponent } from './views/pages/pokemon-detail/pokemon-detail.component';
 import { DefaultButtonComponent } from './views/components/default-button/default-button.component';
 import { HeaderComponent } from './views/components/header/header.component';
-import { RouterModule, Routes } from "@angular/router";
-import { HttpClient, HttpClientModule } from "@angular/common/http";
-import { DataModule } from "./core/data/data.module";
-import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
-import { TranslateHttpLoader } from "@ngx-translate/http-loader";
-import { FormsModule } from "@angular/forms";
+import { RouterModule, Routes } from '@angular/router';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { DataModule } from './core/data/data.module';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { FormsModule } from '@angular/forms';
 
 const appRoutes: Routes = [
   { path: '', component: PokemonListComponent },
-  { path: 'details/:name', component: PokemonDetailComponent }
+  { path: 'details/:name', component: PokemonDetailComponent },
 ];
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
@@ -28,7 +28,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     PokemonListComponent,
     PokemonDetailComponent,
     DefaultButtonComponent,
-    HeaderComponent
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,11 +40,11 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    })
+        deps: [HttpClient],
+      },
+    }),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
