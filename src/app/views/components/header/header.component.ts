@@ -1,8 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { AuthImplementationRepository } from '../../../core/data/repositories/auth/auth-implementation.repository';
-import { GetLoggedInUserUseCase } from '../../../core/domain/usecases/get-logged-in-user.usecase';
-import { UserModel } from '../../../core/domain/models/user.model';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-header',
@@ -10,25 +8,23 @@ import { UserModel } from '../../../core/domain/models/user.model';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  userSub: any = null;
+  userEmail: any;
   isUserAuthenticated: boolean = false;
 
   constructor(
     public translate: TranslateService,
-    public getLoggedInUser: GetLoggedInUserUseCase
+    private cookies: CookieService
   ) {
     translate.addLangs(['en', 'de']);
     translate.setDefaultLang('en');
+
+    this.userEmail = this.cookies.get('email');
   }
 
-  ngOnInit() {
-    this.userSub = this.getLoggedInUser.execute();
-    if (this.userSub !== null) {
-      this.isUserAuthenticated = true;
-    }
-  }
+  ngOnInit() {}
 
   handleLogout() {
+    this.cookies.deleteAll();
     this.isUserAuthenticated = !this.isUserAuthenticated;
   }
 }

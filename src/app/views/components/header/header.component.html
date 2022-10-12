@@ -2,8 +2,9 @@
   <h1>{{ 'HOME.TITLE' | translate }}</h1>
 
   <div>
-    <a routerLink="/auth" *ngIf="isUserAuthenticated">Enter</a>
-    <a routerLink="/auth" *ngIf="!isUserAuthenticated" (click)="handleLogout()">Logout</a>
+    <a routerLink="/auth" *ngIf="!userEmail">{{ 'HOME.ENTER' | translate }}</a>
+    <p *ngIf="userEmail">{{ 'HOME.GREETINGS' | translate }} {{ userEmail }}</p>
+    <a routerLink="/auth" *ngIf="userEmail" (click)="handleLogout()">{{ 'HOME.LOGOUT' | translate }}</a>
 
     <select #langSelect (change)="translate.use(langSelect.value)">
       <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>

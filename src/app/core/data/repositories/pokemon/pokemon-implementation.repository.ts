@@ -30,9 +30,7 @@ export class PokemonImplementationRepository extends PokemonRepository {
       );
   }
 
-  override getPokemonByName(
-    pokemonName: string
-  ): Observable<PokemonDetailModel> {
+  getPokemonByName(pokemonName: string): Observable<PokemonDetailModel> {
     return this.http
       .get<PokemonDetailEntity>(
         'https://pokeapi.co/api/v2/pokemon/' + pokemonName

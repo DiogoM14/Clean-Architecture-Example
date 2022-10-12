@@ -8,6 +8,7 @@ import {
 import { LoginUseCase } from '../../../core/domain/usecases/login.usecase';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-auth',
@@ -17,11 +18,13 @@ import { Router } from '@angular/router';
 export class AuthComponent {
   isLoginMode = true;
   isLoading = false;
+  userEmail: any;
 
   constructor(
     private signUp: SignupUseCase,
     private login: LoginUseCase,
-    private router: Router
+    private router: Router,
+    private cookies: CookieService
   ) {}
 
   handleSwitchMode() {
@@ -51,6 +54,8 @@ export class AuthComponent {
       this.isLoading = false;
       this.router.navigate(['/']);
       console.log(user);
+      //this.userEmail = this.cookies.get('email');
+      //console.log(this.userEmail);
     });
 
     form.reset();

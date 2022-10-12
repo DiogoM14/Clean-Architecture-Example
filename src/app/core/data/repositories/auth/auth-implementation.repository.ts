@@ -11,6 +11,7 @@ import { SignupAuthEntity } from './entities/signup-auth-entity';
 import { AuthImplementationRepositoryMapper } from './mappers/signup-auth-repository.mapper';
 import { User } from '../../../../views/pages/auth/user.model';
 import { environment } from '../../../../../environment';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +21,7 @@ export class AuthImplementationRepository extends AuthRepository {
   user: any = null;
   apiKey: any;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private cookies: CookieService) {
     super();
 
     this.apiKey = environment.apiKey;
@@ -64,6 +65,6 @@ export class AuthImplementationRepository extends AuthRepository {
   }
 
   private handleAuthentication(user: UserModel) {
-    this.user = user;
+    this.cookies.set('email', user.email);
   }
 }

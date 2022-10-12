@@ -14,6 +14,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { FormsModule } from '@angular/forms';
 import { AuthComponent } from './views/pages/auth/auth.component';
 import { LoadingSpinnerComponent } from './views/components/loadingSpinner/loading-spinner.component';
+import { CookieService } from 'ngx-cookie-service';
 
 const appRoutes: Routes = [
   { path: '', component: PokemonListComponent },
@@ -49,7 +50,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
       },
     }),
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
