@@ -1,8 +1,8 @@
 import { UseCase } from '../base/use-case';
 import { PokemonRepository } from '../repositories/pokemon.repository';
-import { PokemonDetailModel } from '../models/pokemonDetail.model';
+import { PokemonDetailModel } from '../models/pokemon-detail.model';
 
-export class GetPokemonByNameUsecase
+export class GetPokemonByNameUseCase
   implements UseCase<string, PokemonDetailModel>
 {
   constructor(private pokemonRepository: PokemonRepository) {}

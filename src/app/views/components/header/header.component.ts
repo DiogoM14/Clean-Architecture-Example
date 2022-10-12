@@ -1,32 +1,34 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthImplementationRepository } from '../../../core/data/repositories/auth/auth-implementation.repository';
+import { GetLoggedInUserUseCase } from '../../../core/domain/usecases/get-logged-in-user.usecase';
+import { UserModel } from '../../../core/domain/models/user.model';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit, OnDestroy {
-  private userSub: any;
+export class HeaderComponent implements OnInit {
+  userSub: any = null;
   isUserAuthenticated: boolean = false;
 
   constructor(
     public translate: TranslateService,
-    public authService: AuthImplementationRepository
+    public getLoggedInUser: GetLoggedInUserUseCase
   ) {
     translate.addLangs(['en', 'de']);
     translate.setDefaultLang('en');
   }
 
   ngOnInit() {
-    this.userSub = this.authService.user.subscribe((user) => {
-      this.isUserAuthenticated = !!user;
-      console.log(!!user);
-    });
+    this.userSub = this.getLoggedInUser.execute();
+    if (this.userSub !== null) {
+      this.isUserAuthenticated = true;
+    }
   }
 
-  ngOnDestroy() {
-    this.authService.user.unsubscribe();
+  handleLogout() {
+    this.isUserAuthenticated = !this.isUserAuthenticated;
   }
 }

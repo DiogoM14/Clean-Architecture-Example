@@ -1,31 +1,48 @@
-import { Observable, Subject, tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthRepository } from '../../../domain/repositories/auth.repository';
 import {
-  AuthModel,
+  UserModel,
   UserLoginFormData,
-} from '../../../domain/models/auth.model';
+} from '../../../domain/models/user.model';
 import { SignupAuthEntity } from './entities/signup-auth-entity';
 import { AuthImplementationRepositoryMapper } from './mappers/signup-auth-repository.mapper';
 import { User } from '../../../../views/pages/auth/user.model';
+import { environment } from '../../../../../environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthImplementationRepository extends AuthRepository {
   authMapper = new AuthImplementationRepositoryMapper();
-  user = new Subject<User>();
+  user: any = null;
+  apiKey: any;
 
   constructor(private http: HttpClient) {
     super();
+
+    this.apiKey = environment.apiKey;
   }
 
-  signup(userData: UserLoginFormData): Observable<AuthModel> {
+  signup(userData: UserLoginFormData): Observable<UserModel> {
     return this.http
       .post<SignupAuthEntity>(
-        'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCGxkamjEMcoy31al1LpfEXbLRr3Jov7vE',
+        `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${this.apiKey}`,
+        {
+          email: userData.email,
+          password: userData.password,
+          returnSecureToken: true,
+        }
+      )
+      .pipe(map(this.authMapper.mapFrom));
+  }
+
+  login(userData: UserLoginFormData): Observable<UserModel> {
+    return this.http
+      .post<SignupAuthEntity>(
+        `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${this.apiKey}`,
         {
           email: userData.email,
           password: userData.password,
@@ -34,50 +51,19 @@ export class AuthImplementationRepository extends AuthRepository {
       )
       .pipe(
         map(this.authMapper.mapFrom),
-        tap((resData) =>
-          this.handleAuthentication(
-            resData.email,
-            resData.localId,
-            resData.idToken,
-            +resData.expiresIn
-          )
-        )
+        tap((user) => this.handleAuthentication(user))
       );
   }
 
-  signin(userData: UserLoginFormData): Observable<AuthModel> {
-    return this.http
-      .post<SignupAuthEntity>(
-        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCGxkamjEMcoy31al1LpfEXbLRr3Jov7vE',
-        {
-          email: userData.email,
-          password: userData.password,
-          returnSecureToken: true,
-        }
-      )
-      .pipe(
-        map(this.authMapper.mapFrom),
-        tap((resData) =>
-          this.handleAuthentication(
-            resData.email,
-            resData.localId,
-            resData.idToken,
-            +resData.expiresIn
-          )
-        )
-      );
+  getLoggedInUser() {
+    if (this.user !== null) {
+      return this.user;
+    } else {
+      return null;
+    }
   }
 
-  private handleAuthentication(
-    email: string,
-    userId: string,
-    token: string,
-    expiresIn: number
-  ) {
-    const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
-
-    const user = new User(email, userId, token, expirationDate);
-
-    this.user.next(user);
+  private handleAuthentication(user: UserModel) {
+    this.user = user;
   }
 }

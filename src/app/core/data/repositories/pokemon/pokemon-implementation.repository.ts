@@ -4,9 +4,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { PokemonRepository } from '../../../domain/repositories/pokemon.repository';
 import { PokemonsModel } from '../../../domain/models/pokemons.model';
-import { PokemonsEntity } from './entities/pokemons-entity';
-import { PokemonDetailModel } from '../../../domain/models/pokemonDetail.model';
-import { PokemonDetailEntity } from './entities/pokemonDetail-entity';
+import { PokemonsEntity } from './entities/pokemons.entity';
+import { PokemonDetailModel } from '../../../domain/models/pokemon-detail.model';
+import { PokemonDetailEntity } from './entities/pokemon-detail.entity';
 import { PokemonDetailImplementationRepositoryMapper } from './mappers/pokemonDetail-repository.mapper';
 
 @Injectable({

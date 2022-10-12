@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { SignupUsecase } from '../../../core/domain/usecases/signup-auth.usecase';
+import { SignupUseCase } from '../../../core/domain/usecases/signup.usecase';
 import {
-  AuthModel,
+  UserModel,
   UserLoginFormData,
-} from '../../../core/domain/models/auth.model';
-import { SigninUsecase } from '../../../core/domain/usecases/signin-auth.usecase';
+} from '../../../core/domain/models/user.model';
+import { LoginUseCase } from '../../../core/domain/usecases/login.usecase';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -19,8 +19,8 @@ export class AuthComponent {
   isLoading = false;
 
   constructor(
-    private signupService: SignupUsecase,
-    private signinService: SigninUsecase,
+    private signUp: SignupUseCase,
+    private login: LoginUseCase,
     private router: Router
   ) {}
 
@@ -39,17 +39,18 @@ export class AuthComponent {
     };
 
     this.isLoading = true;
-    let authObs: Observable<AuthModel>;
+    let authObs: Observable<UserModel>;
 
     if (this.isLoginMode) {
-      authObs = this.signinService.execute(userData);
+      authObs = this.login.execute(userData);
     } else {
-      authObs = this.signupService.execute(userData);
+      authObs = this.signUp.execute(userData);
     }
 
-    authObs.subscribe((res) => {
+    authObs.subscribe((user) => {
       this.isLoading = false;
       this.router.navigate(['/']);
+      console.log(user);
     });
 
     form.reset();

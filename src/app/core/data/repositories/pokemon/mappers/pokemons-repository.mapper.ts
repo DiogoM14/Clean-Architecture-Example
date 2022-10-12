@@ -1,5 +1,5 @@
 import { Mapper } from '../../../../base/utils/mapper';
-import { PokemonsEntity } from '../entities/pokemons-entity';
+import { PokemonsEntity } from '../entities/pokemons.entity';
 import { PokemonsModel } from '../../../../domain/models/pokemons.model';
 
 export class PokemonImplementationRepositoryMapper extends Mapper<

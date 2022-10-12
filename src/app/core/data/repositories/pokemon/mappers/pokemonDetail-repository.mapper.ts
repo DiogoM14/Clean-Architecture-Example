@@ -1,6 +1,6 @@
 import { Mapper } from '../../../../base/utils/mapper';
-import { PokemonDetailEntity } from '../entities/pokemonDetail-entity';
-import { PokemonDetailModel } from '../../../../domain/models/pokemonDetail.model';
+import { PokemonDetailEntity } from '../entities/pokemon-detail.entity';
+import { PokemonDetailModel } from '../../../../domain/models/pokemon-detail.model';
 
 export class PokemonDetailImplementationRepositoryMapper extends Mapper<
   PokemonDetailEntity,

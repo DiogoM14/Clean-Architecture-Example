@@ -3,7 +3,7 @@
 
   <div>
     <a routerLink="/auth" *ngIf="isUserAuthenticated">Enter</a>
-    <a routerLink="/auth" *ngIf="!isUserAuthenticated">Logout</a>
+    <a routerLink="/auth" *ngIf="!isUserAuthenticated" (click)="handleLogout()">Logout</a>
 
     <select #langSelect (change)="translate.use(langSelect.value)">
       <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>

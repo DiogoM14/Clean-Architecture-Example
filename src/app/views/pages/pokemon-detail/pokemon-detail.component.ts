@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { GetPokemonByNameUsecase } from '../../../core/domain/usecases/get-pokemon-by-name.usecase';
-import { PokemonDetailModel } from '../../../core/domain/models/pokemonDetail.model';
+import { GetPokemonByNameUseCase } from '../../../core/domain/usecases/get-pokemon-by-name-use.case';
+import { PokemonDetailModel } from '../../../core/domain/models/pokemon-detail.model';
 
 @Component({
   selector: 'app-pokemon-detail',
@@ -19,7 +19,7 @@ export class PokemonDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private getPokemonByName: GetPokemonByNameUsecase
+    private getPokemonByName: GetPokemonByNameUseCase
   ) {}
 
   ngOnInit() {

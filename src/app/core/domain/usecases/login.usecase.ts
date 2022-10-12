@@ -1,11 +1,11 @@
 import { UseCase } from '../base/use-case';
 import { AuthRepository } from '../repositories/auth.repository';
-import { AuthModel, UserLoginFormData } from '../models/auth.model';
+import { UserModel, UserLoginFormData } from '../models/user.model';
 
-export class SigninUsecase implements UseCase<UserLoginFormData, AuthModel> {
+export class LoginUseCase implements UseCase<UserLoginFormData, UserModel> {
   constructor(private authRepository: AuthRepository) {}
 
   execute(userData: UserLoginFormData) {
-    return this.authRepository.signin(userData);
+    return this.authRepository.login(userData);
   }
 }

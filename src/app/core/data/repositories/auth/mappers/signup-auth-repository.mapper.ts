@@ -1,19 +1,21 @@
 import { Mapper } from '../../../../base/utils/mapper';
 import { SignupAuthEntity } from '../entities/signup-auth-entity';
-import { AuthModel } from '../../../../domain/models/auth.model';
+import { UserModel } from '../../../../domain/models/user.model';
 
 export class AuthImplementationRepositoryMapper extends Mapper<
   SignupAuthEntity,
-  AuthModel
+  UserModel
 > {
-  mapFrom(param: SignupAuthEntity): AuthModel {
+  mapFrom(param: SignupAuthEntity): UserModel {
+    const tokenExpirationDate = new Date(
+      new Date().getTime() + +param.expiresIn * 1000
+    );
+
     return {
       id: param.idToken,
       email: param.email,
-      refreshToken: param.refreshToken,
-      expiresIn: param.expiresIn,
-      localId: param.localId,
-      idToken: param.idToken,
+      token: param.idToken,
+      tokenExpirationDate,
     };
   }
 }
