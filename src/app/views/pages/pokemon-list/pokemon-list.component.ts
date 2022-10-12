@@ -15,6 +15,7 @@ export class PokemonListComponent {
   showPokemonList = false;
   pokemonName = '';
   pokemonDetails?: PokemonDetailModel;
+  isLoading: boolean = false;
 
   constructor(
     private getAllPokemons: GetAllPokemonsUseCase,
@@ -22,11 +23,14 @@ export class PokemonListComponent {
   ) {}
 
   handleSearchPokemonByName(form: NgForm) {
+    this.isLoading = true;
     this.pokemonName = form.value.pokemonName.toLowerCase();
 
     this.getPokemonByName.execute(this.pokemonName).subscribe((pokemon) => {
       this.pokemonDetails = pokemon;
     });
+
+    this.isLoading = false;
 
     form.reset();
   }

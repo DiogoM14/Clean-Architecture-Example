@@ -37,7 +37,10 @@ export class AuthImplementationRepository extends AuthRepository {
           returnSecureToken: true,
         }
       )
-      .pipe(map(this.authMapper.mapFrom));
+      .pipe(
+        map(this.authMapper.mapFrom),
+        tap((user) => this.handleAuthentication(user))
+      );
   }
 
   login(userData: UserLoginFormData): Observable<UserModel> {

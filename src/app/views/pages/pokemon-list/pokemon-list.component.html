@@ -15,6 +15,7 @@
   </form>
 
   <div class="pokemonDetails" *ngIf="pokemonDetails">
+    <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
     <span class="clearBtn" (click)="handleClearPokemonDetails()">Clear</span>
     <h1>{{ pokemonDetails.name }}</h1>
     <img [src]="pokemonDetails.front_image" [alt]="pokemonName" />

@@ -22,7 +22,7 @@ export class PokemonImplementationRepository extends PokemonRepository {
 
   getAllPokemons(): Observable<PokemonsModel[]> {
     return this.http
-      .get<PokemonsEntity>('https://pokeapi.co/api/v2/pokemon')
+      .get<PokemonsEntity>('https://pokeapi.co/api/v2/pokemon?limit=100')
       .pipe(
         map((response: PokemonsEntity) => {
           return response.results;
