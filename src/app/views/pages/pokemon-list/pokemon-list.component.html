@@ -36,6 +36,7 @@
   ></app-default-button>
 
   <div class="list" *ngIf="pokemons && !!showPokemonList">
+    <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
     <ul>
       <li *ngFor="let pokemon of pokemons">
         <p>

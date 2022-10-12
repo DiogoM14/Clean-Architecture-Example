@@ -36,9 +36,11 @@ export class PokemonListComponent {
   }
 
   handleFetchAllPokemons() {
+    this.isLoading = true;
     this.getAllPokemons.execute().subscribe((pokemons: PokemonsModel[]) => {
       this.pokemons = pokemons;
     });
+    this.isLoading = false;
   }
 
   handleClearPokemonDetails() {
