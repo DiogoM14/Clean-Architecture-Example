@@ -13,8 +13,4 @@ export class PokemonImplementationRepositoryMapper extends Mapper<
       url: param.results[0].url,
     };
   }
-
-  mapTo(param: PokemonsModel): any {
-    return {};
-  }
 }

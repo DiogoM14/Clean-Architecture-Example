@@ -1,3 +1,5 @@
+@import "~src/assets/index";
+
 header {
   max-width: 1100px;
   width: 100%;
@@ -5,4 +7,25 @@ header {
   display: flex;
   justify-content: space-between;
   margin: 0 auto;
+
+  div {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+
+    select {
+      background: $gray-600;
+      border-radius: 8px;
+      border: none;
+      color: $white;
+      padding: 0.5rem;
+      cursor: pointer;
+    }
+
+    a {
+      color: $white;
+      text-decoration: none;
+      font-weight: 600;
+    }
+  }
 }

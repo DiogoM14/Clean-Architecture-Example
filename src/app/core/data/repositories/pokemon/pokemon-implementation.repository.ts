@@ -24,7 +24,7 @@ export class PokemonImplementationRepository extends PokemonRepository {
     return this.http
       .get<PokemonsEntity>('https://pokeapi.co/api/v2/pokemon')
       .pipe(
-        map((response: any) => {
+        map((response: PokemonsEntity) => {
           return response.results;
         })
       );
@@ -33,11 +33,6 @@ export class PokemonImplementationRepository extends PokemonRepository {
   override getPokemonByName(
     pokemonName: string
   ): Observable<PokemonDetailModel> {
-    // this.http.get('https://pokeapi.co/api/v2/pokemon/' + this.pokemonName)
-    //  .subscribe((response: any) => {
-    //    this.pokemonDetails = response
-    //  });
-
     return this.http
       .get<PokemonDetailEntity>(
         'https://pokeapi.co/api/v2/pokemon/' + pokemonName

@@ -5,6 +5,9 @@ import { PokemonRepository } from '../domain/repositories/pokemon.repository';
 import { GetAllPokemonsUsecase } from '../domain/usecases/get-all-pokemons.usecase';
 import { PokemonImplementationRepository } from './repositories/pokemon/pokemon-implementation.repository';
 import { GetPokemonByNameUsecase } from '../domain/usecases/get-pokemon-by-name.usecase';
+import { AuthRepository } from '../domain/repositories/auth.repository';
+import { SignupUsecase } from '../domain/usecases/signup-auth.usecase';
+import { AuthImplementationRepository } from './repositories/auth/auth-implementation.repository';
 
 const getAllPokemonsUsecaseFactory = (pokemonRepo: PokemonRepository) =>
   new GetAllPokemonsUsecase(pokemonRepo);
@@ -22,11 +25,21 @@ export const getPokemonByNameUsecaseProvider = {
   deps: [PokemonRepository],
 };
 
+const signupUsecaseFactory = (authRepo: AuthRepository) =>
+  new SignupUsecase(authRepo);
+export const signupUsecaseProvider = {
+  provide: SignupUsecase,
+  useFactory: signupUsecaseFactory,
+  deps: [AuthRepository],
+};
+
 @NgModule({
   providers: [
     getAllPokemonsUsecaseProvider,
     getPokemonByNameUsecaseProvider,
+    signupUsecaseProvider,
     { provide: PokemonRepository, useClass: PokemonImplementationRepository },
+    { provide: AuthRepository, useClass: AuthImplementationRepository },
   ],
   imports: [CommonModule, HttpClientModule],
 })

@@ -1,7 +1,11 @@
 <header>
   <h1>{{ 'HOME.TITLE' | translate }}</h1>
 
-  <select #langSelect (change)="translate.use(langSelect.value)">
-    <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>
-  </select>
+  <div>
+    <a routerLink="/auth">Enter</a>
+
+    <select #langSelect (change)="translate.use(langSelect.value)">
+      <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>
+    </select>
+  </div>
 </header>

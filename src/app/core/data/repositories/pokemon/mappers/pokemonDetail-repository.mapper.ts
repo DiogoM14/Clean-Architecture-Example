@@ -14,8 +14,4 @@ export class PokemonDetailImplementationRepositoryMapper extends Mapper<
       back_image: param.sprites.back_default,
     };
   }
-
-  mapTo(param: PokemonDetailModel): any {
-    return {};
-  }
 }
