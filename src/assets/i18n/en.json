@@ -1,8 +1,8 @@
 {
   "HOME": {
-    "TITLE": "Welcome to 42-PokéAPI",
+    "TITLE": "Welcome to ",
     "GREETINGS": "Hello, ",
     "LOGOUT": "Logout",
-    "ENTER": "Enter"
+    "ENTER": "Login"
   }
 }

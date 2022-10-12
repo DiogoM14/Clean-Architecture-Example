@@ -1,5 +1,5 @@
 <header>
-  <h1>{{ 'HOME.TITLE' | translate }}</h1>
+  <h1 routerLink="/">{{ 'HOME.TITLE' | translate }}<span>42</span>-PokéAPI</h1>
 
   <div>
     <a routerLink="/auth" *ngIf="!userEmail">{{ 'HOME.ENTER' | translate }}</a>

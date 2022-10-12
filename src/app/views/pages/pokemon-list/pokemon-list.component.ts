@@ -27,11 +27,17 @@ export class PokemonListComponent {
     this.getPokemonByName.execute(this.pokemonName).subscribe((pokemon) => {
       this.pokemonDetails = pokemon;
     });
+
+    form.reset();
   }
 
   handleFetchAllPokemons() {
     this.getAllPokemons.execute().subscribe((pokemons: PokemonsModel[]) => {
       this.pokemons = pokemons;
     });
+  }
+
+  handleClearPokemonDetails() {
+    this.pokemonDetails = undefined;
   }
 }
