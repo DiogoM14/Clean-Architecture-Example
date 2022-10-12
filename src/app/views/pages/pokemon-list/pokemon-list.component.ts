@@ -22,7 +22,7 @@ export class PokemonListComponent {
   ) {}
 
   handleSearchPokemonByName(form: NgForm) {
-    this.pokemonName = form.value.pokemonName;
+    this.pokemonName = form.value.pokemonName.toLowerCase();
 
     this.getPokemonByName.execute(this.pokemonName).subscribe((pokemon) => {
       this.pokemonDetails = pokemon;

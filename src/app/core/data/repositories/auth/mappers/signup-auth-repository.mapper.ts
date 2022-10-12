@@ -12,6 +12,8 @@ export class AuthImplementationRepositoryMapper extends Mapper<
       email: param.email,
       refreshToken: param.refreshToken,
       expiresIn: param.expiresIn,
+      localId: param.localId,
+      idToken: param.idToken,
     };
   }
 }

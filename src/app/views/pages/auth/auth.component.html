@@ -1,5 +1,8 @@
 <main>
-  <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
+  <div>
+    <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+  </div>
+  <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="!isLoading">
     <div class="inputGroup">
       <label for="email">E-mail</label>
       <input type="email" id="email" ngModel name="email" required>

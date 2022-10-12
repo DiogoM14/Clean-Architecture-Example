@@ -3,4 +3,5 @@ import { AuthModel, UserLoginFormData } from '../models/auth.model';
 
 export abstract class AuthRepository {
   abstract signup(userData: UserLoginFormData): Observable<AuthModel>;
+  abstract signin(userData: UserLoginFormData): Observable<AuthModel>;
 }

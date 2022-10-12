@@ -3,6 +3,9 @@ export interface AuthModel {
   email: string;
   refreshToken: string;
   expiresIn: string;
+  localId: string;
+  registered?: string;
+  idToken: string;
 }
 
 export interface UserLoginFormData {

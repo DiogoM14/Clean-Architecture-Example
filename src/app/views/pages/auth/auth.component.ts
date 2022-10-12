@@ -1,7 +1,13 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { SignupUsecase } from '../../../core/domain/usecases/signup-auth.usecase';
-import { UserLoginFormData } from '../../../core/domain/models/auth.model';
+import {
+  AuthModel,
+  UserLoginFormData,
+} from '../../../core/domain/models/auth.model';
+import { SigninUsecase } from '../../../core/domain/usecases/signin-auth.usecase';
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -10,8 +16,13 @@ import { UserLoginFormData } from '../../../core/domain/models/auth.model';
 })
 export class AuthComponent {
   isLoginMode = true;
+  isLoading = false;
 
-  constructor(private signupService: SignupUsecase) {}
+  constructor(
+    private signupService: SignupUsecase,
+    private signinService: SigninUsecase,
+    private router: Router
+  ) {}
 
   handleSwitchMode() {
     this.isLoginMode = !this.isLoginMode;
@@ -27,7 +38,19 @@ export class AuthComponent {
       password: form.value.password,
     };
 
-    this.signupService.execute(userData).subscribe((res) => console.log(res));
+    this.isLoading = true;
+    let authObs: Observable<AuthModel>;
+
+    if (this.isLoginMode) {
+      authObs = this.signinService.execute(userData);
+    } else {
+      authObs = this.signupService.execute(userData);
+    }
+
+    authObs.subscribe((res) => {
+      this.isLoading = false;
+      this.router.navigate(['/']);
+    });
 
     form.reset();
   }

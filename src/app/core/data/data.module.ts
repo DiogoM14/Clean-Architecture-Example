@@ -8,6 +8,7 @@ import { GetPokemonByNameUsecase } from '../domain/usecases/get-pokemon-by-name.
 import { AuthRepository } from '../domain/repositories/auth.repository';
 import { SignupUsecase } from '../domain/usecases/signup-auth.usecase';
 import { AuthImplementationRepository } from './repositories/auth/auth-implementation.repository';
+import { SigninUsecase } from '../domain/usecases/signin-auth.usecase';
 
 const getAllPokemonsUsecaseFactory = (pokemonRepo: PokemonRepository) =>
   new GetAllPokemonsUsecase(pokemonRepo);
@@ -33,11 +34,20 @@ export const signupUsecaseProvider = {
   deps: [AuthRepository],
 };
 
+const signinUsecaseFactory = (authRepo: AuthRepository) =>
+  new SigninUsecase(authRepo);
+export const signinUsecaseProvider = {
+  provide: SigninUsecase,
+  useFactory: signinUsecaseFactory,
+  deps: [AuthRepository],
+};
+
 @NgModule({
   providers: [
     getAllPokemonsUsecaseProvider,
     getPokemonByNameUsecaseProvider,
     signupUsecaseProvider,
+    signinUsecaseProvider,
     { provide: PokemonRepository, useClass: PokemonImplementationRepository },
     { provide: AuthRepository, useClass: AuthImplementationRepository },
   ],
