@@ -15,7 +15,7 @@ export class PokemonListComponent {
   showPokemonList = false;
   pokemonName = '';
   pokemonDetails?: PokemonDetailModel;
-  isLoading: boolean = false;
+  isLoading = false;
 
   constructor(
     private getAllPokemons: GetAllPokemonsUseCase,

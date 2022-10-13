@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { CookieService } from 'ngx-cookie-service';
 import { GetLoggedInUserUseCase } from '../../../core/domain/usecases/get-logged-in-user.usecase';
@@ -9,10 +9,10 @@ import { Subscription } from 'rxjs';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   private userSub: Subscription = new Subscription();
-  isUserAuthenticated: boolean = false;
-  userEmail: string = '';
+  isUserAuthenticated = false;
+  userEmail = '';
 
   constructor(
     public translate: TranslateService,

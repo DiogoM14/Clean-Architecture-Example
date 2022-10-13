@@ -18,7 +18,7 @@ import { CookieService } from 'ngx-cookie-service';
 export class AuthImplementationRepository extends AuthRepository {
   authMapper = new AuthImplementationRepositoryMapper();
   user = new Subject<UserModel>;
-  apiKey: any;
+  apiKey: string;
 
   constructor(private http: HttpClient, private cookies: CookieService) {
     super();
