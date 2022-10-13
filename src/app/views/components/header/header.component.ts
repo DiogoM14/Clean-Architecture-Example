@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { CookieService } from 'ngx-cookie-service';
+import { GetLoggedInUserUseCase } from '../../../core/domain/usecases/get-logged-in-user.usecase';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -8,23 +10,34 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  userEmail: any;
+  private userSub: Subscription = new Subscription();
   isUserAuthenticated: boolean = false;
+  userEmail: string = '';
 
   constructor(
     public translate: TranslateService,
-    private cookies: CookieService
+    private cookies: CookieService,
+    private getUser: GetLoggedInUserUseCase
   ) {
     translate.addLangs(['en', 'de']);
     translate.setDefaultLang('en');
 
-    this.userEmail = this.cookies.get('email');
+    // this.userEmail = this.cookies.get('email');
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.userSub = this.getUser.execute().subscribe((user) => {
+      this.isUserAuthenticated = !!user;
+      this.userEmail = this.cookies.get('email');
+    });
+  }
+
+  ngOnDestroy() {
+    this.userSub.unsubscribe();
+  }
 
   handleLogout() {
-    this.cookies.deleteAll();
+    // this.cookies.deleteAll();
     this.isUserAuthenticated = !this.isUserAuthenticated;
   }
 }

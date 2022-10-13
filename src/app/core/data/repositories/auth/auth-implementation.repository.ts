@@ -1,4 +1,4 @@
-import { Observable, tap } from 'rxjs';
+import { Observable, Subject, tap } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -9,7 +9,6 @@ import {
 } from '../../../domain/models/user.model';
 import { SignupAuthEntity } from './entities/signup-auth-entity';
 import { AuthImplementationRepositoryMapper } from './mappers/signup-auth-repository.mapper';
-import { User } from '../../../../views/pages/auth/user.model';
 import { environment } from '../../../../../environment';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -18,7 +17,7 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class AuthImplementationRepository extends AuthRepository {
   authMapper = new AuthImplementationRepositoryMapper();
-  user: any = null;
+  user = new Subject<UserModel>;
   apiKey: any;
 
   constructor(private http: HttpClient, private cookies: CookieService) {
@@ -60,14 +59,11 @@ export class AuthImplementationRepository extends AuthRepository {
   }
 
   getLoggedInUser() {
-    if (this.user !== null) {
-      return this.user;
-    } else {
-      return null;
-    }
+    return this.user;
   }
 
   private handleAuthentication(user: UserModel) {
     this.cookies.set('email', user.email);
+    this.user.next(user);
   }
 }
