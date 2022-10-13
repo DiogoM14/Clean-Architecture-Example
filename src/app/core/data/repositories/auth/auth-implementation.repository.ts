@@ -1,4 +1,4 @@
-import { Observable, Subject, tap } from 'rxjs';
+import {catchError, Observable, Subject, tap, throwError} from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -38,8 +38,23 @@ export class AuthImplementationRepository extends AuthRepository {
       )
       .pipe(
         map(this.authMapper.mapFrom),
-        tap((user) => this.handleAuthentication(user))
-      );
+        tap((user) => this.handleAuthentication(user)),
+        (catchError((errorMessage) => {
+          let error = "An unknown error occurred!";
+
+          if (!errorMessage.error || !errorMessage.error.error) {
+            return throwError(errorMessage);
+          }
+
+          switch (errorMessage.error.error.message) {
+            case 'EMAIL_EXISTS':
+              error = 'This email exists already';
+              break;
+          }
+
+          return throwError(error);
+        }
+      )))
   }
 
   login(userData: UserLoginFormData): Observable<UserModel> {
@@ -54,7 +69,26 @@ export class AuthImplementationRepository extends AuthRepository {
       )
       .pipe(
         map(this.authMapper.mapFrom),
-        tap((user) => this.handleAuthentication(user))
+        tap((user) => this.handleAuthentication(user)),
+        (catchError((errorMessage) => {
+            let error = "An unknown error occurred!";
+
+            if (!errorMessage.error || !errorMessage.error.error) {
+              return throwError(errorMessage);
+            }
+
+            switch (errorMessage.error.error.message) {
+              case 'EMAIL_NOT_FOUND':
+                error = 'This email does not exist.';
+                break;
+              case 'INVALID_PASSWORD':
+                error = 'This password is not correct.';
+                break;
+            }
+
+            return throwError(error);
+          }
+        ))
       );
   }
 

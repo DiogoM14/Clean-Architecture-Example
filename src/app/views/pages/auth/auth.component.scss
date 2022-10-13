@@ -57,3 +57,12 @@ form {
     }
   }
 }
+
+.alert {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+  background: $red-500;
+  color: $white;
+  font-weight: bold;
+}

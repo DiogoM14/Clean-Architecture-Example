@@ -17,6 +17,7 @@ import { Router } from '@angular/router';
 export class AuthComponent {
   isLoginMode = true;
   isLoading = false;
+  error: string | null = null;
 
   constructor(
     private signUp: SignupUseCase,
@@ -47,10 +48,17 @@ export class AuthComponent {
       authObs = this.signUp.execute(userData);
     }
 
-    authObs.subscribe((user) => {
-      this.isLoading = false;
-      this.router.navigate(['/']);
-    });
+    authObs.subscribe(
+      (user) => {
+        this.isLoading = false;
+        this.router.navigate(['/']);
+      },
+      (errorMessage) => {
+        console.log(errorMessage);
+        this.error = errorMessage;
+        this.isLoading = false;
+      }
+    );
 
     form.reset();
   }
