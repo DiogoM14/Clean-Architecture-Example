@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { GetAllPokemonsUsecase } from '../../../core/domain/usecases/get-all-pokemons.usecase';
+import { GetAllPokemonsUseCase } from '../../../core/domain/usecases/get-all-pokemons-use.case';
 import { PokemonsModel } from '../../../core/domain/models/pokemons.model';
 import { NgForm } from '@angular/forms';
-import { GetPokemonByNameUsecase } from '../../../core/domain/usecases/get-pokemon-by-name.usecase';
-import { PokemonDetailModel } from '../../../core/domain/models/pokemonDetail.model';
+import { GetPokemonByNameUseCase } from '../../../core/domain/usecases/get-pokemon-by-name-use.case';
+import { PokemonDetailModel } from '../../../core/domain/models/pokemon-detail.model';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -15,23 +15,35 @@ export class PokemonListComponent {
   showPokemonList = false;
   pokemonName = '';
   pokemonDetails?: PokemonDetailModel;
+  isLoading: boolean = false;
 
   constructor(
-    private getAllPokemons: GetAllPokemonsUsecase,
-    private getPokemonByName: GetPokemonByNameUsecase
+    private getAllPokemons: GetAllPokemonsUseCase,
+    private getPokemonByName: GetPokemonByNameUseCase
   ) {}
 
   handleSearchPokemonByName(form: NgForm) {
-    this.pokemonName = form.value.pokemonName;
+    this.isLoading = true;
+    this.pokemonName = form.value.pokemonName.toLowerCase();
 
     this.getPokemonByName.execute(this.pokemonName).subscribe((pokemon) => {
       this.pokemonDetails = pokemon;
     });
+
+    this.isLoading = false;
+
+    form.reset();
   }
 
   handleFetchAllPokemons() {
+    this.isLoading = true;
     this.getAllPokemons.execute().subscribe((pokemons: PokemonsModel[]) => {
       this.pokemons = pokemons;
     });
+    this.isLoading = false;
+  }
+
+  handleClearPokemonDetails() {
+    this.pokemonDetails = undefined;
   }
 }

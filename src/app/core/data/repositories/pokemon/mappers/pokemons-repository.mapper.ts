@@ -1,5 +1,5 @@
 import { Mapper } from '../../../../base/utils/mapper';
-import { PokemonsEntity } from '../entities/pokemons-entity';
+import { PokemonsEntity } from '../entities/pokemons.entity';
 import { PokemonsModel } from '../../../../domain/models/pokemons.model';
 
 export class PokemonImplementationRepositoryMapper extends Mapper<
@@ -12,9 +12,5 @@ export class PokemonImplementationRepositoryMapper extends Mapper<
       name: param.results[0].name,
       url: param.results[0].url,
     };
-  }
-
-  mapTo(param: PokemonsModel): any {
-    return {};
   }
 }

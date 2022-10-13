@@ -12,10 +12,14 @@ import { DataModule } from './core/data/data.module';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { FormsModule } from '@angular/forms';
+import { AuthComponent } from './views/pages/auth/auth.component';
+import { LoadingSpinnerComponent } from './views/components/loadingSpinner/loading-spinner.component';
+import { CookieService } from 'ngx-cookie-service';
 
 const appRoutes: Routes = [
   { path: '', component: PokemonListComponent },
   { path: 'details/:name', component: PokemonDetailComponent },
+  { path: 'auth', component: AuthComponent },
 ];
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
@@ -29,6 +33,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     PokemonDetailComponent,
     DefaultButtonComponent,
     HeaderComponent,
+    AuthComponent,
+    LoadingSpinnerComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,7 +50,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
       },
     }),
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

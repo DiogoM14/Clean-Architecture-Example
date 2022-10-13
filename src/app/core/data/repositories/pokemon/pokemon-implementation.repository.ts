@@ -4,9 +4,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { PokemonRepository } from '../../../domain/repositories/pokemon.repository';
 import { PokemonsModel } from '../../../domain/models/pokemons.model';
-import { PokemonsEntity } from './entities/pokemons-entity';
-import { PokemonDetailModel } from '../../../domain/models/pokemonDetail.model';
-import { PokemonDetailEntity } from './entities/pokemonDetail-entity';
+import { PokemonsEntity } from './entities/pokemons.entity';
+import { PokemonDetailModel } from '../../../domain/models/pokemon-detail.model';
+import { PokemonDetailEntity } from './entities/pokemon-detail.entity';
 import { PokemonDetailImplementationRepositoryMapper } from './mappers/pokemonDetail-repository.mapper';
 
 @Injectable({
@@ -22,22 +22,15 @@ export class PokemonImplementationRepository extends PokemonRepository {
 
   getAllPokemons(): Observable<PokemonsModel[]> {
     return this.http
-      .get<PokemonsEntity>('https://pokeapi.co/api/v2/pokemon')
+      .get<PokemonsEntity>('https://pokeapi.co/api/v2/pokemon?limit=100')
       .pipe(
-        map((response: any) => {
+        map((response: PokemonsEntity) => {
           return response.results;
         })
       );
   }
 
-  override getPokemonByName(
-    pokemonName: string
-  ): Observable<PokemonDetailModel> {
-    // this.http.get('https://pokeapi.co/api/v2/pokemon/' + this.pokemonName)
-    //  .subscribe((response: any) => {
-    //    this.pokemonDetails = response
-    //  });
-
+  getPokemonByName(pokemonName: string): Observable<PokemonDetailModel> {
     return this.http
       .get<PokemonDetailEntity>(
         'https://pokeapi.co/api/v2/pokemon/' + pokemonName

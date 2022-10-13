@@ -1,17 +1,43 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { CookieService } from 'ngx-cookie-service';
+import { GetLoggedInUserUseCase } from '../../../core/domain/usecases/get-logged-in-user.usecase';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent {
-  constructor(public translate: TranslateService) {
+export class HeaderComponent implements OnInit {
+  private userSub: Subscription = new Subscription();
+  isUserAuthenticated: boolean = false;
+  userEmail: string = '';
+
+  constructor(
+    public translate: TranslateService,
+    private cookies: CookieService,
+    private getUser: GetLoggedInUserUseCase
+  ) {
     translate.addLangs(['en', 'de']);
     translate.setDefaultLang('en');
 
-    const browserLang: any = translate.getBrowserLang();
-    translate.use(browserLang.match(/en|de/) ? browserLang : 'en');
+    // this.userEmail = this.cookies.get('email');
+  }
+
+  ngOnInit() {
+    this.userSub = this.getUser.execute().subscribe((user) => {
+      this.isUserAuthenticated = !!user;
+      this.userEmail = this.cookies.get('email');
+    });
+  }
+
+  ngOnDestroy() {
+    this.userSub.unsubscribe();
+  }
+
+  handleLogout() {
+    // this.cookies.deleteAll();
+    this.isUserAuthenticated = !this.isUserAuthenticated;
   }
 }

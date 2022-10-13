@@ -1,28 +1,11 @@
 <main>
-  <app-default-button
-    (click)="handleFetchAllPokemons()"
-    (click)="showPokemonList = !showPokemonList"
-    [btnName]="!showPokemonList ? 'Show me all' : 'Hide list'"
-  ></app-default-button>
-
-  <div class="list" *ngIf="pokemons && !!showPokemonList">
-    <ul>
-      <li *ngFor="let pokemon of pokemons">
-        <p>
-          {{ pokemon.name }}
-        </p>
-        <a [routerLink]="['/details/' + pokemon.name]">See more</a>
-      </li>
-    </ul>
-  </div>
-
   <form (ngSubmit)="handleSearchPokemonByName(f)" #f="ngForm">
     <input
       id="pokemonName"
       type="text"
       ngModel
       name="pokemonName"
-      placeholder="Search pokemon by his name"
+      placeholder="Search any pokemon by his name: Ex Pikachu"
       required
     >
     <app-default-button
@@ -31,7 +14,9 @@
     ></app-default-button>
   </form>
 
-  <div *ngIf="pokemonDetails">
+  <div class="pokemonDetails" *ngIf="pokemonDetails">
+    <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+    <span class="clearBtn" (click)="handleClearPokemonDetails()">Clear</span>
     <h1>{{ pokemonDetails.name }}</h1>
     <img [src]="pokemonDetails.front_image" [alt]="pokemonName" />
     <img [src]="pokemonDetails.back_image" [alt]="pokemonName" />
@@ -40,5 +25,25 @@
 
   <div class="pagination-buttons-group" *ngIf="pokemons.length > 0">
 
+  </div>
+
+  <hr class="divider">
+
+  <app-default-button
+    (click)="handleFetchAllPokemons()"
+    (click)="showPokemonList = !showPokemonList"
+    [btnName]="!showPokemonList ? 'Show me all' : 'Hide list'"
+  ></app-default-button>
+
+  <div class="list" *ngIf="pokemons && !!showPokemonList">
+    <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+    <ul>
+      <li *ngFor="let pokemon of pokemons">
+        <p>
+          {{ pokemon.name }}
+        </p>
+        <a [routerLink]="['/details/' + pokemon.name]">See more</a>
+      </li>
+    </ul>
   </div>
 </main>
