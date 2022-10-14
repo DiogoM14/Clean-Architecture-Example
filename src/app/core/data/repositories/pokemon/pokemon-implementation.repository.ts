@@ -12,13 +12,11 @@ import { PokemonDetailImplementationRepositoryMapper } from './mappers/pokemonDe
 @Injectable({
   providedIn: 'root',
 })
-export class PokemonImplementationRepository extends PokemonRepository {
+export class PokemonImplementationRepository implements PokemonRepository {
   // pokemonMapper = new PokemonImplementationRepositoryMapper();
   pokemonDetailMapper = new PokemonDetailImplementationRepositoryMapper();
 
-  constructor(private http: HttpClient) {
-    super();
-  }
+  constructor(private http: HttpClient) {}
 
   getAllPokemons(): Observable<PokemonsModel[]> {
     return this.http

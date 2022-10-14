@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { CookieService } from 'ngx-cookie-service';
-import { GetLoggedInUserUseCase } from '../../../core/domain/usecases/get-logged-in-user.usecase';
 import { Subscription } from 'rxjs';
+import { AuthUseCases } from '../../../core/domain/usecases/auth.usecases';
 
 @Component({
   selector: 'app-header',
@@ -17,18 +17,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(
     public translate: TranslateService,
     private cookies: CookieService,
-    private getUser: GetLoggedInUserUseCase
+    private auth: AuthUseCases
   ) {
     translate.addLangs(['en', 'de']);
     translate.setDefaultLang('en');
-
-    // this.userEmail = this.cookies.get('email');
   }
 
   ngOnInit() {
-    this.userSub = this.getUser.execute().subscribe((user) => {
-      this.isUserAuthenticated = !!user;
-      this.userEmail = this.cookies.get('email');
+    this.userSub = this.auth.getLoggedInUsers().subscribe((user) => {
+      if (user !== null) {
+        this.isUserAuthenticated = !!user;
+        this.userEmail = user?.email;
+      }
     });
   }
 
@@ -37,7 +37,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   handleLogout() {
-    // this.cookies.deleteAll();
     this.isUserAuthenticated = !this.isUserAuthenticated;
   }
 }

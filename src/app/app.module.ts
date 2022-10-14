@@ -12,9 +12,9 @@ import { DataModule } from './core/data/data.module';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { FormsModule } from '@angular/forms';
-import { AuthComponent } from './views/pages/auth/auth.component';
 import { LoadingSpinnerComponent } from './views/components/loadingSpinner/loading-spinner.component';
 import { CookieService } from 'ngx-cookie-service';
+import { AuthComponent } from './views/pages/auth/auth.component';
 
 const appRoutes: Routes = [
   { path: '', component: PokemonListComponent },
@@ -33,8 +33,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     PokemonDetailComponent,
     DefaultButtonComponent,
     HeaderComponent,
-    AuthComponent,
     LoadingSpinnerComponent,
+    AuthComponent,
   ],
   imports: [
     BrowserModule,
