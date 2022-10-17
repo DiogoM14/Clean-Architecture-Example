@@ -10,9 +10,9 @@ import { AuthUseCases } from '../../../core/domain/usecases/auth.usecases';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  private userSub: Subscription = new Subscription();
   isUserAuthenticated = false;
   userEmail = '';
+  private userSub: Subscription = new Subscription();
 
   constructor(
     public translate: TranslateService,
@@ -37,6 +37,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   handleLogout() {
+    this.auth.logout();
     this.isUserAuthenticated = !this.isUserAuthenticated;
   }
 }

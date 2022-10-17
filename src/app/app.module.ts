@@ -15,10 +15,15 @@ import { FormsModule } from '@angular/forms';
 import { LoadingSpinnerComponent } from './views/components/loadingSpinner/loading-spinner.component';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthComponent } from './views/pages/auth/auth.component';
+import { PokemonDetailGuard } from './views/pages/pokemon-detail/pokemon-detail.guard';
 
 const appRoutes: Routes = [
   { path: '', component: PokemonListComponent },
-  { path: 'details/:name', component: PokemonDetailComponent },
+  {
+    path: 'details/:name',
+    component: PokemonDetailComponent,
+    canActivate: [PokemonDetailGuard],
+  },
   { path: 'auth', component: AuthComponent },
 ];
 

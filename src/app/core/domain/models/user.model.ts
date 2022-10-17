@@ -17,8 +17,8 @@ export class User {
 export interface UserModel {
   id: string;
   email: string;
-  token: string;
-  tokenExpirationDate: Date;
+  _token: string;
+  _tokenExpirationDate: Date;
 }
 
 export interface UserLoginFormData {

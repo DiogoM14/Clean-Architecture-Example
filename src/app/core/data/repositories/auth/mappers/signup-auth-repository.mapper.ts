@@ -14,8 +14,8 @@ export class AuthImplementationRepositoryMapper extends Mapper<
     return {
       id: param.idToken,
       email: param.email,
-      token: param.idToken,
-      tokenExpirationDate,
+      _token: param.idToken,
+      _tokenExpirationDate: tokenExpirationDate,
     };
   }
 }
