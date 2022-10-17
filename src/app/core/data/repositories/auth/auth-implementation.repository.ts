@@ -9,7 +9,7 @@ import {
 } from '../../../domain/models/user.model';
 import { SignupAuthEntity } from './entities/signup-auth-entity';
 import { AuthImplementationRepositoryMapper } from './mappers/signup-auth-repository.mapper';
-import { environment } from '../../../../../environment';
+import { environment } from '../../../../../environments/environment';
 import { AuthUseCases } from '../../../domain/usecases/auth.usecases';
 import { Router } from '@angular/router';
 
